@@ -1,0 +1,55 @@
+from backend.db import get_db
+
+
+def _overlaps(start: str, end: str, check_in: str, check_out: str) -> bool:
+    return start < check_out and end > check_in
+
+
+def check_availability(check_in: str, check_out: str, room_type_id: str | None = None) -> dict:
+    """Return raw reservations, restrictions, and blocks overlapping the given dates.
+
+    Args:
+        check_in: ISO date (YYYY-MM-DD).
+        check_out: ISO date (YYYY-MM-DD).
+        room_type_id: Optional room type id to narrow results.
+    """
+    db = get_db()
+    reservations = [
+        r
+        for r in db["reservations"]
+        if any(
+            (room_type_id is None or room["room_type_id"] == room_type_id)
+            and _overlaps(room["check_in"], room["check_out"], check_in, check_out)
+            for room in r["rooms"]
+        )
+    ]
+    restrictions = [
+        r
+        for r in db["restrictions"]
+        if room_type_id is None or r["room_type_id"] == room_type_id
+    ]
+    blocks = [
+        b
+        for b in db["blocks"]
+        if room_type_id is None or b["room_type_id"] == room_type_id
+    ]
+    return {"reservations": reservations, "restrictions": restrictions, "blocks": blocks}
+
+
+def get_room_details(room_type_id: str) -> dict | None:
+    """Return details for a room type."""
+    return next((r for r in get_db()["room_types"] if r["id"] == room_type_id), None)
+
+
+def get_rate_plans(room_type_id: str | None = None) -> list:
+    """Return rate plans, optionally filtered by room type."""
+    return [
+        r
+        for r in get_db()["rate_plans"]
+        if room_type_id is None or r["room_type_id"] == room_type_id
+    ]
+
+
+def get_addons() -> list:
+    """Return all available addons/extras."""
+    return get_db()["addons"]

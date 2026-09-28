@@ -1,19 +1,161 @@
+import { useState } from "react"
+import { ArrowUpIcon, RotateCcwIcon } from "lucide-react"
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
+import {
+  Bubble,
+  BubbleContent,
+} from "@/components/ui/bubble"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+} from "@/components/ui/message"
+import {
+  MessageScroller,
+  MessageScrollerContent,
+  MessageScrollerItem,
+  MessageScrollerProvider,
+  MessageScrollerViewport,
+} from "@/components/ui/message-scroller"
+import { useChat, type ChatMessage } from "@/hooks/useChat"
+
+const WELCOME =
+  "Hi, I'm Daisy — the front desk assistant here to help with room availability, bookings, reservations, payments, and more. How can I help?"
+
+function AssistantBubble({ content, streaming }: { content: string; streaming: boolean }) {
+  return (
+    <Message align="start">
+      <MessageAvatar>
+        <Avatar>
+          <AvatarFallback className="bg-primary text-primary-foreground">D</AvatarFallback>
+        </Avatar>
+      </MessageAvatar>
+      <MessageContent>
+        <Bubble variant="outline" align="start">
+          <BubbleContent>
+            {streaming ? (
+              <span className="shimmer text-muted-foreground">Daisy is thinking…</span>
+            ) : (
+              content
+            )}
+          </BubbleContent>
+        </Bubble>
+      </MessageContent>
+    </Message>
+  )
+}
+
+function UserBubble({ content }: { content: string }) {
+  return (
+    <Message align="end">
+      <MessageContent>
+        <Bubble variant="default" align="end">
+          <BubbleContent>{content}</BubbleContent>
+        </Bubble>
+      </MessageContent>
+    </Message>
+  )
+}
+
+function MessageRow({ message }: { message: ChatMessage }) {
+  if (message.role === "user") {
+    return <UserBubble content={message.content} />
+  }
+  return (
+    <AssistantBubble
+      content={message.content}
+      streaming={message.status === "streaming" && message.content.length === 0}
+    />
+  )
+}
 
 export function App() {
+  const { messages, isStreaming, send, reset } = useChat()
+  const [input, setInput] = useState("")
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault()
+    if (!input.trim() || isStreaming) return
+    void send(input)
+    setInput("")
+  }
+
+  const handleReset = () => {
+    if (isStreaming) return
+    void reset()
+  }
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <div className="mx-auto flex h-svh w-full max-w-2xl flex-col">
+      <header className="flex items-center gap-2 border-b px-4 py-3">
+        <Avatar size="sm">
+          <AvatarFallback className="bg-primary text-primary-foreground">D</AvatarFallback>
+        </Avatar>
+        <div className="flex min-w-0 flex-col">
+          <span className="text-sm font-medium leading-tight">Daisy</span>
+          <span className="text-xs text-muted-foreground">Front desk assistant</span>
         </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
+        <Badge variant="secondary" className="ms-auto">
+          test agent
+        </Badge>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          onClick={handleReset}
+          disabled={isStreaming}
+          aria-label="Start a new conversation"
+          title="Start a new conversation"
+        >
+          <RotateCcwIcon />
+        </Button>
+      </header>
+
+      <MessageScrollerProvider autoScroll>
+        <MessageScroller className="flex-1">
+          <MessageScrollerViewport>
+            <MessageScrollerContent className="px-4 py-5">
+              <MessageScrollerItem>
+                <AssistantBubble content={WELCOME} streaming={false} />
+              </MessageScrollerItem>
+              {messages.map((message) => (
+                <MessageScrollerItem
+                  key={message.id}
+                  scrollAnchor={message.role === "user"}
+                >
+                  <MessageRow message={message} />
+                </MessageScrollerItem>
+              ))}
+            </MessageScrollerContent>
+          </MessageScrollerViewport>
+        </MessageScroller>
+      </MessageScrollerProvider>
+
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center gap-2 border-t p-3"
+      >
+        <Input
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+          placeholder="Message Daisy…"
+          aria-label="Message Daisy"
+          autoFocus
+          className="h-10 flex-1"
+        />
+        <Button
+          type="submit"
+          size="icon"
+          disabled={!input.trim() || isStreaming}
+          aria-label="Send message"
+        >
+          <ArrowUpIcon />
+        </Button>
+      </form>
     </div>
   )
 }

@@ -1,0 +1,299 @@
+{
+  "room_types": [
+    {
+      "id": "rt-standard",
+      "name": "Standard King",
+      "bed": "King",
+      "view": "City view",
+      "amenities": [
+        "Wi-Fi",
+        "TV",
+        "Mini-fridge"
+      ],
+      "max_occupancy": 2,
+      "total_units": 5
+    },
+    {
+      "id": "rt-deluxe",
+      "name": "Deluxe Queen",
+      "bed": "Queen",
+      "view": "Garden view",
+      "amenities": [
+        "Wi-Fi",
+        "TV",
+        "Coffee maker",
+        "In-room safe"
+      ],
+      "max_occupancy": 3,
+      "total_units": 3
+    },
+    {
+      "id": "rt-suite",
+      "name": "Suite",
+      "bed": "1 King + sofa bed",
+      "view": "Ocean view",
+      "amenities": [
+        "Wi-Fi",
+        "TV",
+        "Kitchenette",
+        "Bathtub",
+        "Balcony"
+      ],
+      "max_occupancy": 4,
+      "total_units": 2
+    }
+  ],
+  "rate_plans": [
+    {
+      "id": "rp-std-ref",
+      "room_type_id": "rt-standard",
+      "name": "Standard - Refundable",
+      "refundable": true,
+      "price_per_night": 159,
+      "cancellation_policy": "Free cancellation up to 24h before check-in"
+    },
+    {
+      "id": "rp-std-nr",
+      "room_type_id": "rt-standard",
+      "name": "Standard - Non-refundable",
+      "refundable": false,
+      "price_per_night": 139,
+      "cancellation_policy": "Non-refundable"
+    },
+    {
+      "id": "rp-deluxe-ref",
+      "room_type_id": "rt-deluxe",
+      "name": "Deluxe - Refundable",
+      "refundable": true,
+      "price_per_night": 219,
+      "cancellation_policy": "Free cancellation up to 48h before check-in"
+    },
+    {
+      "id": "rp-deluxe-nr",
+      "room_type_id": "rt-deluxe",
+      "name": "Deluxe - Non-refundable",
+      "refundable": false,
+      "price_per_night": 199,
+      "cancellation_policy": "Non-refundable"
+    },
+    {
+      "id": "rp-suite-ref",
+      "room_type_id": "rt-suite",
+      "name": "Suite - Refundable",
+      "refundable": true,
+      "price_per_night": 299,
+      "cancellation_policy": "Free cancellation up to 48h before check-in"
+    },
+    {
+      "id": "rp-suite-nr",
+      "room_type_id": "rt-suite",
+      "name": "Suite - Non-refundable",
+      "refundable": false,
+      "price_per_night": 269,
+      "cancellation_policy": "Non-refundable"
+    }
+  ],
+  "restrictions": [
+    {
+      "id": "restr-1",
+      "room_type_id": "rt-standard",
+      "start_date": "2026-10-20",
+      "end_date": "2026-10-22",
+      "reason": "Wedding group block",
+      "units": 5
+    }
+  ],
+  "blocks": [
+    {
+      "id": "bk-1",
+      "block_code": "WED27",
+      "name": "Wedding - Wilson",
+      "room_type_id": "rt-standard",
+      "check_in": "2026-10-20",
+      "check_out": "2026-10-22",
+      "units": 5,
+      "rate": 149,
+      "private": true
+    }
+  ],
+  "addons": [
+    {
+      "id": "ad-pet",
+      "name": "Pet fee",
+      "price": 25,
+      "unit": "per_night"
+    },
+    {
+      "id": "ad-parking",
+      "name": "Parking",
+      "price": 15,
+      "unit": "per_night"
+    },
+    {
+      "id": "ad-early",
+      "name": "Early check-in",
+      "price": 30,
+      "unit": "per_stay"
+    },
+    {
+      "id": "ad-breakfast",
+      "name": "Breakfast",
+      "price": 20,
+      "unit": "per_night"
+    }
+  ],
+  "discount_codes": [
+    {
+      "code": "SAVE10",
+      "type": "percent",
+      "value": 10,
+      "eligibility": "all",
+      "expires_at": "2027-01-01",
+      "used": false,
+      "used_by": null
+    },
+    {
+      "code": "MEMBER15",
+      "type": "percent",
+      "value": 15,
+      "eligibility": "member",
+      "expires_at": "2026-12-31",
+      "used": false,
+      "used_by": null
+    }
+  ],
+  "gift_certificates": [
+    {
+      "code": "GC-1000",
+      "type": "amount",
+      "value": 100,
+      "expires_at": "2027-06-30",
+      "used": false,
+      "used_by": null
+    }
+  ],
+  "guests": [
+    {
+      "id": "g-1",
+      "name": "Milan Suman",
+      "phone": "+1-555-0100",
+      "email": "milan.suman@example.com"
+    },
+    {
+      "id": "g-2",
+      "name": "Milan Sharma",
+      "phone": "+1-555-0144",
+      "email": "milan.sharma@example.com"
+    },
+    {
+      "id": "g-3",
+      "name": "milan",
+      "phone": "892196439284",
+      "email": "a@gmailc.om"
+    }
+  ],
+  "reservations": [
+    {
+      "id": "res-1001",
+      "channel": "direct",
+      "confirmation_number": "DC-8821",
+      "external_confirmation": null,
+      "guest_id": "g-1",
+      "rooms": [
+        {
+          "room_type_id": "rt-standard",
+          "room_number": "204",
+          "check_in": "2026-10-05",
+          "check_out": "2026-10-08",
+          "guests": 2,
+          "rate_plan_id": "rp-std-ref",
+          "addons": [
+            "ad-pet"
+          ],
+          "amount": 477,
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed",
+      "total": 477,
+      "paid": 200,
+      "discount": null,
+      "payment_status": "partial",
+      "block_code": null
+    },
+    {
+      "id": "res-1002",
+      "channel": "ota",
+      "confirmation_number": "OTA-BK-4432",
+      "external_confirmation": "BK-4432",
+      "guest_id": "g-2",
+      "rooms": [
+        {
+          "room_type_id": "rt-deluxe",
+          "room_number": null,
+          "check_in": "2026-11-01",
+          "check_out": "2026-11-04",
+          "guests": 2,
+          "rate_plan_id": "rp-deluxe-ref",
+          "addons": [],
+          "amount": 657,
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed",
+      "total": 657,
+      "paid": 0,
+      "discount": null,
+      "payment_status": "unpaid",
+      "block_code": null
+    },
+    {
+      "id": "res-1003",
+      "channel": "direct",
+      "confirmation_number": "DC-1003",
+      "external_confirmation": null,
+      "guest_id": "g-3",
+      "rooms": [
+        {
+          "room_type_id": "rt-standard",
+          "room_number": null,
+          "check_in": "2024-04-27",
+          "check_out": "2024-04-28",
+          "guests": 1,
+          "rate_plan_id": "rp-std-nr",
+          "addons": [],
+          "amount": 0,
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed",
+      "total": 0,
+      "paid": 0,
+      "discount": null,
+      "payment_status": "unpaid",
+      "block_code": null
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-1",
+      "reservation_id": "res-1001",
+      "amount": 200,
+      "method": "card",
+      "type": "payment",
+      "recorded_at": "2026-09-01"
+    }
+  ],
+  "payment_links": [],
+  "invoices": [],
+  "door_locks": [
+    {
+      "id": "lock-1",
+      "reservation_id": "res-1001",
+      "room_number": "204",
+      "code": "4829",
+      "active": true
+    }
+  ],
+  "confirmation_emails": []
+}

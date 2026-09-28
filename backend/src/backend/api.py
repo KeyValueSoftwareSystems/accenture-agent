@@ -1,13 +1,24 @@
 from collections.abc import AsyncIterable
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.sse import EventSourceResponse, ServerSentEvent
+from netra import Netra
 from pydantic import BaseModel, Field
 
 from backend.agent import clear_thread, get_agent
 from backend.db import get_db
+from backend.observability import init_netra, shutdown_netra
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_netra()
+    yield
+    shutdown_netra()
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 class ChatRequest(BaseModel):
@@ -18,6 +29,9 @@ class ChatRequest(BaseModel):
 async def stream_tokens(request: ChatRequest) -> AsyncIterable[ServerSentEvent]:
     agent = get_agent()
     config = {"configurable": {"thread_id": request.thread_id}}
+    Netra.set_root_input(request.message)
+    Netra.set_session_id(request.thread_id)
+    collected: list[str] = []
     async for event in agent.astream_events(
         {"messages": [{"role": "user", "content": request.message}]},
         config=config,
@@ -29,7 +43,9 @@ async def stream_tokens(request: ChatRequest) -> AsyncIterable[ServerSentEvent]:
         content = getattr(chunk, "content", None)
         if not content:
             continue
+        collected.append(content)
         yield ServerSentEvent(data={"token": content}, event="token")
+    Netra.set_root_output("".join(collected))
     yield ServerSentEvent(data={"done": True}, event="done")
 
 

@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
 from pydantic import SecretStr
 
-from backend.agent.prompt import SYSTEM_PROMPT
+from backend.agent.prompt import get_system_prompt
 from backend.agent.tools import TOOLS
 from backend.settings import get_settings
 
@@ -23,7 +23,7 @@ def get_agent():
     return create_agent(
         model=model,
         tools=TOOLS,
-        system_prompt=SYSTEM_PROMPT,
+        system_prompt=get_system_prompt(),
         checkpointer=_checkpointer,
     )
 

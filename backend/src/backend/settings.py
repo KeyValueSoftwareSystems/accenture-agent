@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     model: str = "gpt-4.1-mini"
     openai_api_key: str
     openai_base_url: str | None = None
+    netra_prompt_label: str = "production"
 
 
 @lru_cache

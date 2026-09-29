@@ -190,6 +190,36 @@
       "name": "milan",
       "phone": "892196439284",
       "email": "a@gmailc.om"
+    },
+    {
+      "id": "g-4",
+      "name": "Milan Suman",
+      "phone": "+1-555-0166",
+      "email": "milan.suman2@example.com"
+    },
+    {
+      "id": "g-5",
+      "name": "Riya Patel",
+      "phone": "+1-555-0200",
+      "email": "riya.patel@example.com"
+    },
+    {
+      "id": "g-6",
+      "name": "Tom Becker",
+      "phone": "+1-555-0300",
+      "email": "tom.becker@example.com"
+    },
+    {
+      "id": "g-7",
+      "name": "Nina Rossi",
+      "phone": "+1-555-0400",
+      "email": "nina.rossi@example.com"
+    },
+    {
+      "id": "g-8",
+      "name": "Samir Das",
+      "phone": "+1-555-0500",
+      "email": "samir.das@example.com"
     }
   ],
   "reservations": [
@@ -268,6 +298,136 @@
       ],
       "status": "confirmed",
       "total": 0,
+      "paid": 0,
+      "discount": null,
+      "payment_status": "unpaid",
+      "block_code": null
+    },
+    {
+      "id": "res-1004",
+      "channel": "direct",
+      "confirmation_number": "DC-8821",
+      "external_confirmation": null,
+      "guest_id": "g-4",
+      "rooms": [
+        {
+          "room_type_id": "rt-deluxe",
+          "room_number": null,
+          "check_in": "2026-10-11",
+          "check_out": "2026-10-14",
+          "guests": 2,
+          "rate_plan_id": "rp-deluxe-ref",
+          "addons": [],
+          "amount": 657,
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed",
+      "total": 657,
+      "paid": 0,
+      "discount": null,
+      "payment_status": "unpaid",
+      "block_code": null
+    },
+    {
+      "id": "res-1005",
+      "channel": "direct",
+      "confirmation_number": "DC-7711",
+      "external_confirmation": null,
+      "guest_id": "g-5",
+      "rooms": [
+        {
+          "room_type_id": "rt-standard",
+          "room_number": "204",
+          "check_in": "2026-10-07",
+          "check_out": "2026-10-10",
+          "guests": 2,
+          "rate_plan_id": "rp-std-ref",
+          "addons": [],
+          "amount": 477,
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed",
+      "total": 477,
+      "paid": 477,
+      "discount": null,
+      "payment_status": "paid",
+      "block_code": null
+    },
+    {
+      "id": "res-1006",
+      "channel": "direct",
+      "confirmation_number": "DC-5555",
+      "external_confirmation": null,
+      "guest_id": "g-6",
+      "rooms": [
+        {
+          "room_type_id": "rt-suite",
+          "room_number": "501",
+          "check_in": "2026-11-10",
+          "check_out": "2026-11-13",
+          "guests": 2,
+          "rate_plan_id": "rp-suite-ref",
+          "addons": [],
+          "amount": 897,
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed",
+      "total": 897,
+      "paid": 950,
+      "discount": null,
+      "payment_status": "paid",
+      "block_code": null
+    },
+    {
+      "id": "res-1007",
+      "channel": "ota",
+      "confirmation_number": "DC-9990",
+      "external_confirmation": "XT-9990",
+      "guest_id": "g-7",
+      "rooms": [
+        {
+          "room_type_id": "rt-mystery",
+          "room_number": null,
+          "check_in": "2026-12-01",
+          "check_out": "2026-12-03",
+          "guests": 1,
+          "rate_plan_id": "",
+          "addons": [],
+          "amount": 0,
+          "status": "confirmed"
+        }
+      ],
+      "status": "confirmed",
+      "total": 0,
+      "paid": 0,
+      "discount": null,
+      "payment_status": "unpaid",
+      "block_code": null
+    },
+    {
+      "id": "res-1008",
+      "channel": "direct",
+      "confirmation_number": "DC-3344",
+      "external_confirmation": null,
+      "guest_id": "g-8",
+      "rooms": [
+        {
+          "room_type_id": "rt-standard",
+          "room_number": "305",
+          "check_in": "2026-10-01",
+          "check_out": "2026-10-03",
+          "guests": 2,
+          "rate_plan_id": "rp-std-ref",
+          "addons": [],
+          "amount": 318,
+          "status": "cancelled"
+        }
+      ],
+      "status": "confirmed",
+      "total": 318,
       "paid": 0,
       "discount": null,
       "payment_status": "unpaid",

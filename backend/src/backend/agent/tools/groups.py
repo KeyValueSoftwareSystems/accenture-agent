@@ -1,9 +1,6 @@
-from netra.decorators import task
-
 from backend.db import get_db, next_id, save_db
 
 
-@task
 def create_group_block(
     block_code: str,
     room_type_id: str,
@@ -31,7 +28,6 @@ def create_group_block(
     return block
 
 
-@task
 def book_room_under_block(reservation_id: str, block_code: str) -> dict | None:
     """Attach a reservation to a group block by block code."""
     db = get_db()

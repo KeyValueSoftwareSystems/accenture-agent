@@ -5,7 +5,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.sse import EventSourceResponse, ServerSentEvent
 from netra import Netra
-from netra.decorators import agent
 from pydantic import BaseModel, Field
 
 from backend.agent import clear_thread, get_agent
@@ -38,7 +37,6 @@ class ChatRequest(BaseModel):
     thread_id: str = Field(default="default", description="Conversation thread identifier")
 
 
-@agent(name="Frontdesk Agent")
 async def stream_tokens(request: ChatRequest) -> AsyncIterable[ServerSentEvent]:
     agent = get_agent()
     config = {"configurable": {"thread_id": request.thread_id}}

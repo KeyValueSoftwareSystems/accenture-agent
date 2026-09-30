@@ -1,9 +1,6 @@
-from netra.decorators import task
-
 from backend.db import get_db, save_db
 
 
-@task
 def apply_discount_code(reservation_id: str, code: str) -> dict | None:
     """Stamp a discount code onto a reservation."""
     db = get_db()
@@ -15,7 +12,6 @@ def apply_discount_code(reservation_id: str, code: str) -> dict | None:
     return reservation
 
 
-@task
 def apply_gift_certificate(reservation_id: str, code: str) -> dict | None:
     """Stamp a gift certificate onto a reservation."""
     db = get_db()

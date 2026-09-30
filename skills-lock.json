@@ -145,24 +145,6 @@
       "skillPath": "config/skills/managed-deep-agents/SKILL.md",
       "computedHash": "20734cdcb22c5bda57b8010f0394d230cda4c7ea23db1e3a42951a2f1c6a100d"
     },
-    "netra-best-practices": {
-      "source": "keyvaluesoftwaresystems/netra-skills",
-      "sourceType": "github",
-      "skillPath": "skills/netra-best-practices/SKILL.md",
-      "computedHash": "2c2f2318d3658ad76636e25c1c8561896a3407944181d5d904654b8245c3d8ae"
-    },
-    "netra-evaluation-setup": {
-      "source": "keyvaluesoftwaresystems/netra-skills",
-      "sourceType": "github",
-      "skillPath": "skills/netra-evaluation-setup/SKILL.md",
-      "computedHash": "4262f59e64793f01a90acb8c7da96c804fffaf3798ff2b45e03a0c152643aa3b"
-    },
-    "netra-mcp-usage": {
-      "source": "keyvaluesoftwaresystems/netra-skills",
-      "sourceType": "github",
-      "skillPath": "skills/netra-mcp-usage/SKILL.md",
-      "computedHash": "79c2043f9bb62fff55ed9f0417d84745f0c78f3056e810bc5430118cd92c4f8a"
-    },
     "shadcn": {
       "source": "shadcn/ui",
       "sourceType": "github",

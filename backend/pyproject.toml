@@ -12,14 +12,12 @@ dependencies = [
     "langchain>=1.4.2",
     "langchain-openai>=1.6.6",
     "livekit-agents[cartesia,deepgram,openai]>=1.8.3",
-    "netra-sdk>=1.1.0",
     "pydantic-settings>=2.15.0",
     "uvicorn>=0.54.0",
 ]
 
 [project.scripts]
 backend = "backend:main"
-daisy-sim = "backend.simulation:main"
 
 [build-system]
 requires = ["uv_build>=0.12.2,<0.13.0"]

@@ -9,7 +9,6 @@ class Settings(BaseSettings):
     model: str
     openai_api_key: str
     openai_base_url: str | None = None
-    netra_prompt_label: str = "production"
     cors_origins: list[str] = ["*"]
 
 

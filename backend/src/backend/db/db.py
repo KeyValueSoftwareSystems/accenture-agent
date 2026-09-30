@@ -1,26 +1,9 @@
-import contextvars
 import json
 from pathlib import Path
 
 DATA_PATH = Path(__file__).parent / "data.json"
 
 _db: dict | None = None
-_db_cv: contextvars.ContextVar = contextvars.ContextVar("db", default=None)
-
-
-def _load_global() -> dict:
-    global _db
-    _db = json.loads(DATA_PATH.read_text())
-    return _db
-
-
-def _current() -> dict:
-    scoped = _db_cv.get()
-    if scoped is not None:
-        return scoped
-    if _db is None:
-        return _load_global()
-    return _db
 
 
 def load_db() -> dict:
@@ -30,24 +13,15 @@ def load_db() -> dict:
 
 
 def get_db() -> dict:
-    return _current()
+    if _db is None:
+        return load_db()
+    return _db
 
 
 def save_db(data: dict) -> None:
-    if _db_cv.get() is not None:
-        _db_cv.set(data)
-        return
     global _db
     _db = data
     DATA_PATH.write_text(json.dumps(data, indent=2))
-
-
-def set_db(data: dict) -> None:
-    _db_cv.set(data)
-
-
-def clear_db() -> None:
-    _db_cv.set(None)
 
 
 def get_collection(name: str) -> list:

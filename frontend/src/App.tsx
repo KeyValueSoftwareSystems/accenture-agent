@@ -90,14 +90,14 @@ export function App() {
   }
 
   return (
-    <div className="mx-auto flex h-svh w-full max-w-2xl flex-col">
+    <div className="mx-auto flex h-svh w-full max-w-2xl flex-col text">
       <header className="flex items-center gap-2 border-b px-4 py-3">
         <Avatar size="sm">
           <AvatarFallback className="bg-primary text-primary-foreground">D</AvatarFallback>
         </Avatar>
         <div className="flex min-w-0 flex-col">
-          <span className="text-sm font-medium leading-tight">Daisy</span>
-          <span className="text-xs text-muted-foreground">Front desk assistant</span>
+          <span className="text-base font-semibold leading-tight">Daisy</span>
+          <span className="text-sm text-muted-foreground">Front desk assistant</span>
         </div>
         <Badge variant="secondary" className="ms-auto">
           test agent

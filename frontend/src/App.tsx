@@ -24,7 +24,7 @@ import {
 import { useChat, type ChatMessage } from "@/hooks/useChat"
 
 const WELCOME =
-  "Hi, I'm Daisy — the front desk assistant here to help with room availability, bookings, reservations, payments, and more. How can I help?"
+  "Hi, I'm front desk assistant here to help with room availability, bookings, reservations, payments, and more. How can I help?"
 
 function AssistantBubble({ content, streaming }: { content: string; streaming: boolean }) {
   return (
@@ -38,7 +38,7 @@ function AssistantBubble({ content, streaming }: { content: string; streaming: b
         <Bubble variant="outline" align="start">
           <BubbleContent>
             {streaming ? (
-              <span className="shimmer text-muted-foreground">Daisy is thinking…</span>
+              <span className="shimmer text-muted-foreground">Derek is thinking…</span>
             ) : (
               content
             )}
@@ -96,7 +96,7 @@ export function App() {
           <AvatarFallback className="bg-primary text-primary-foreground">D</AvatarFallback>
         </Avatar>
         <div className="flex min-w-0 flex-col">
-          <span className="text-base font-semibold leading-tight">Daisy</span>
+          <span className="text-base font-semibold leading-tight">Derek</span>
           <span className="text-sm text-muted-foreground">Front desk assistant</span>
         </div>
         <Badge variant="secondary" className="ms-auto">
@@ -142,8 +142,8 @@ export function App() {
         <Input
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          placeholder="Message Daisy…"
-          aria-label="Message Daisy"
+          placeholder="Message Derek…"
+          aria-label="Message Derek"
           autoFocus
           className="h-10 flex-1"
         />

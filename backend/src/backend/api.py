@@ -38,7 +38,7 @@ class ChatRequest(BaseModel):
     thread_id: str = Field(default="default", description="Conversation thread identifier")
 
 
-@agent(name="Daisy")
+@agent(name="Frontdesk Agent")
 async def stream_tokens(request: ChatRequest) -> AsyncIterable[ServerSentEvent]:
     agent = get_agent()
     config = {"configurable": {"thread_id": request.thread_id}}

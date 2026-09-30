@@ -1,6 +1,9 @@
+from netra.decorators import task
+
 from backend.db import get_db, next_id, save_db
 
 
+@task
 def find_reservation(
     confirmation_number: str | None = None,
     name: str | None = None,
@@ -34,11 +37,13 @@ def find_reservation(
     return matches
 
 
+@task
 def get_reservation(reservation_id: str) -> dict | None:
     """Return a reservation by id."""
     return next((r for r in get_db()["reservations"] if r["id"] == reservation_id), None)
 
 
+@task
 def create_booking(
     channel: str,
     guest_name: str,
@@ -97,6 +102,7 @@ def create_booking(
     return reservation
 
 
+@task
 def add_room_to_booking(
     reservation_id: str,
     room_type_id: str,
@@ -127,6 +133,7 @@ def add_room_to_booking(
     return reservation
 
 
+@task
 def set_preferred_room_number(reservation_id: str, room_number: str, room_index: int = 0) -> dict | None:
     """Set the room number on a room in the reservation."""
     db = get_db()
@@ -138,6 +145,7 @@ def set_preferred_room_number(reservation_id: str, room_number: str, room_index:
     return reservation
 
 
+@task
 def cancel_reservation(reservation_id: str, room_index: int | None = None) -> dict | None:
     """Cancel a reservation, or just one room if room_index is given."""
     db = get_db()
@@ -154,6 +162,7 @@ def cancel_reservation(reservation_id: str, room_index: int | None = None) -> di
     return reservation
 
 
+@task
 def modify_reservation(
     reservation_id: str,
     room_index: int = 0,
@@ -184,6 +193,7 @@ def modify_reservation(
     return reservation
 
 
+@task
 def add_addon_to_reservation(reservation_id: str, addon_id: str, room_index: int = 0) -> dict | None:
     """Attach an addon to a room in the reservation."""
     db = get_db()

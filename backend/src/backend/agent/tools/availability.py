@@ -1,3 +1,5 @@
+from netra.decorators import task
+
 from backend.db import get_db
 
 
@@ -5,6 +7,7 @@ def _overlaps(start: str, end: str, check_in: str, check_out: str) -> bool:
     return start < check_out and end > check_in
 
 
+@task
 def check_availability(check_in: str, check_out: str, room_type_id: str | None = None) -> dict:
     """Return raw reservations, restrictions, and blocks overlapping the given dates.
 
@@ -36,11 +39,13 @@ def check_availability(check_in: str, check_out: str, room_type_id: str | None =
     return {"reservations": reservations, "restrictions": restrictions, "blocks": blocks}
 
 
+@task
 def get_room_details(room_type_id: str) -> dict | None:
     """Return details for a room type."""
     return next((r for r in get_db()["room_types"] if r["id"] == room_type_id), None)
 
 
+@task
 def get_rate_plans(room_type_id: str | None = None) -> list:
     """Return rate plans, optionally filtered by room type."""
     return [
@@ -50,6 +55,7 @@ def get_rate_plans(room_type_id: str | None = None) -> list:
     ]
 
 
+@task
 def get_addons() -> list:
     """Return all available addons/extras."""
     return get_db()["addons"]

@@ -1,6 +1,9 @@
+from netra.decorators import task
+
 from backend.db import get_db, next_id, save_db
 
 
+@task
 def generate_invoice(reservation_id: str) -> dict | None:
     """Generate an invoice for a reservation."""
     db = get_db()
@@ -18,11 +21,13 @@ def generate_invoice(reservation_id: str) -> dict | None:
     return invoice
 
 
+@task
 def get_invoice(reservation_id: str) -> list:
     """Return invoices for a reservation."""
     return [i for i in get_db()["invoices"] if i["reservation_id"] == reservation_id]
 
 
+@task
 def resend_confirmation(reservation_id: str, email: str | None = None) -> dict | None:
     """Resend a confirmation email for a reservation."""
     db = get_db()

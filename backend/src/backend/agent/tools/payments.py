@@ -1,6 +1,9 @@
+from netra.decorators import task
+
 from backend.db import get_db, next_id, save_db
 
 
+@task
 def send_payment_link(reservation_id: str, phone: str, landline_check: bool = False) -> dict:
     """Send a payment link to a phone number.
 
@@ -21,6 +24,7 @@ def send_payment_link(reservation_id: str, phone: str, landline_check: bool = Fa
     return link
 
 
+@task
 def request_payment(reservation_id: str) -> dict | None:
     """Return the amount due for a reservation."""
     reservation = next((r for r in get_db()["reservations"] if r["id"] == reservation_id), None)

@@ -1,5 +1,3 @@
-from functools import lru_cache
-
 from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
@@ -11,8 +9,6 @@ from backend.settings import get_settings
 
 _checkpointer = MemorySaver()
 
-
-@lru_cache
 def get_agent():
     settings = get_settings()
     model = ChatOpenAI(

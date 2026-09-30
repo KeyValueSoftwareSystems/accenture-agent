@@ -2,6 +2,7 @@ from collections.abc import AsyncIterable
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.sse import EventSourceResponse, ServerSentEvent
 from netra import Netra
 from netra.decorators import agent
@@ -10,6 +11,7 @@ from pydantic import BaseModel, Field
 from backend.agent import clear_thread, get_agent
 from backend.db import get_db
 from backend.observability import init_netra, shutdown_netra
+from backend.settings import get_settings
 
 
 @asynccontextmanager
@@ -20,6 +22,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+_settings = get_settings()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_settings.cors_origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class ChatRequest(BaseModel):

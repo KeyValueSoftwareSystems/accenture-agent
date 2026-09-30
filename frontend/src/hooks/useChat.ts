@@ -11,6 +11,13 @@ export interface ChatMessage {
 
 const THREAD_ID = "web"
 
+const RUNTIME_BACKEND_URL = (window as unknown as { DAISY_BACKEND_URL?: string }).DAISY_BACKEND_URL
+const BACKEND_URL = (
+  RUNTIME_BACKEND_URL ||
+  (import.meta.env.VITE_BACKEND_URL as string | undefined) ||
+  ""
+).replace(/\/+$/, "")
+
 function parseFrame(frame: string, onToken: (token: string) => void) {
   const lines = frame.split("\n")
   let event = ""
@@ -71,7 +78,7 @@ export function useChat() {
     abortRef.current = controller
 
     try {
-      const response = await fetch("/chat", {
+      const response = await fetch(`${BACKEND_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: trimmed, thread_id: THREAD_ID }),
@@ -135,7 +142,7 @@ export function useChat() {
     setMessages([])
     setIsStreaming(false)
     try {
-      await fetch(`/chat/${encodeURIComponent(THREAD_ID)}`, { method: "DELETE" })
+      await fetch(`${BACKEND_URL}/chat/${encodeURIComponent(THREAD_ID)}`, { method: "DELETE" })
     } catch {
       // server thread may already be empty; local state is still cleared
     }

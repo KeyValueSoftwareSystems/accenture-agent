@@ -16,4 +16,7 @@ export default defineConfig({
       "/chat": "http://localhost:8000",
     },
   },
+  preview: {
+    allowedHosts: true
+  }
 })

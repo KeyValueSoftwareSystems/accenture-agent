@@ -68,6 +68,21 @@ async def chat(request: ChatRequest) -> AsyncIterable[ServerSentEvent]:
         yield event
 
 
+@app.post("/chat/plain")
+async def chat_plain(request: ChatRequest) -> dict:
+    agent = get_agent()
+    config = {"configurable": {"thread_id": request.thread_id}}
+    Netra.set_root_input(request.message)
+    Netra.set_session_id(request.thread_id)
+    result = await agent.ainvoke(
+        {"messages": [{"role": "user", "content": request.message}]},
+        config=config,
+    )
+    response = result["messages"][-1].content
+    Netra.set_root_output(response)
+    return {"response": response, "thread_id": request.thread_id}
+
+
 @app.delete("/chat/{thread_id}")
 async def clear_chat(thread_id: str) -> dict:
     await clear_thread(thread_id)

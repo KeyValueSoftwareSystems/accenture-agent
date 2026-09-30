@@ -10,9 +10,9 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_BACKEND_URL: ${VITE_BACKEND_URL:-}
+        VITE_BACKEND_URL: ${VITE_BACKEND_URL:-http://localhost:8000}
     ports:
-      - "5173:80"
+      - "5173:4173"
     depends_on:
       - backend
     restart: unless-stopped

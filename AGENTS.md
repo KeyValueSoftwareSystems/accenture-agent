@@ -10,9 +10,11 @@ Two services (see `docker-compose.yml`):
 | Service    | What it is                          | Host port |
 | ---------- | ----------------------------------- | --------- |
 | `backend`  | FastAPI + LangChain agent (Netra)   | `8000`    |
-| `frontend` | React/Vite UI served by nginx       | `5173`    |
+| `frontend` | React/Vite UI served by `vite preview` | `5173` |
 
-Frontend nginx proxies `/chat` and `/health` to `backend:8000`.
+The frontend calls the backend directly via `VITE_BACKEND_URL` (baked at build
+time) or the runtime `frontend/public/config.js` — there is no reverse proxy.
+The backend enables CORS for this.
 
 **Important:** neither Dockerfile mounts your source as a volume — both images
 `COPY` the code at build time. There is **no hot reload**. To apply code edits

@@ -13,7 +13,7 @@ you can try the underlying agent and observe its behavior.
 ## Setup
 
 ### 1. Environment variables
-rate
+
 Copy the template to the project root and fill in your values:
 
 ```bash
@@ -49,7 +49,8 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173.
+Open http://localhost:5173. To serve the production build instead, run
+`npm run build && npm run preview`.
 
 ## Run with Docker
 
@@ -60,7 +61,9 @@ docker compose up --build
 - Frontend: http://localhost:5173
 - Backend: http://localhost:8000
 
-`docker-compose.yml` reads environment variables from the root `.env`.
+The frontend container serves the static build via `vite preview` and calls the
+backend directly (CORS). `docker-compose.yml` reads environment variables from
+the root `.env`.
 
 ## Docs
 
